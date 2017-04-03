@@ -63,10 +63,12 @@ abstract class AbstractController implements IController {
     $controller->execute();
     exit();
   }
-    protected function logoutAction(){
+
+  public function logoutAction()
+  {
         $this->model->stopSession();
         $this->forward('default','bezoeker');
+  }
 
-    }
   protected abstract function defaultAction();
 }
