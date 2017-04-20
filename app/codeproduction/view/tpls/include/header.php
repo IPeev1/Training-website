@@ -11,7 +11,8 @@
           <img src="img/logo.png"/>
         </section>
         <section class="header-text">
-          <h1>Training centrum Den Haag</h1>
+          <h1>Training centrum</h1>
+          <h1>Den Haag</h1>
         </section>
         <section class="login">
           <?php
@@ -66,7 +67,14 @@
               case 'instructeur':
                 echo '
                 <li><a href="?control=instructeur&action=default">Home</a></li>
-                <li><a href="?control=instructeur&action=beheerGebruikers">Gebruikers beheer</a></li>';
+                <li><a href="?control=instructeur&action=lessenoverzicht">Lessen overzicht</a></li>
+                <li><a href="?control=instructeur&action=beheerGebruikers">Instructeur beheer</a></li>';
+                break;
+              case 'admin':
+                echo '
+                <li><a href="?control=admin&action=default">Instructeurs</a></li>
+                <li><a href="?control=admin&action=leden">Leden</a></li>
+                <li><a href="?control=admin&action=trainingsvormen">Trainingsvormen</a></li>';
                 break;
             }
           ?>

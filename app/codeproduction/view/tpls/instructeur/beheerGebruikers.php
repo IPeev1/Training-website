@@ -1,25 +1,25 @@
 <?php include str_replace("\\", DIRECTORY_SEPARATOR, BASE_NAMESPACE)."view/tpls/include/header.php"; ?>
 <div class="content">
-    <table>
+    <table class="tableChange">
         <thead>
-            <tr>
-                <td>voor</td>
-                <td>tussenvoegsel</td>
-                <td>achternaam</td>
-                <td>geboorte datum</td>
-                <td>geslacht</td>
-                <td>email</td>
-                <td>eerste werk dag</td>
-                <td>salaris</td>
-                <td>straat</td>
-                <td>postcode</td>
-                <td>woonplaats</td>
-                <td>functie</td>
-                <td colspan="2">acties</td>
-            </tr>
+          <tr>
+            <th>Voor n.</th>
+            <th></th>
+            <th>Achter n.</th>
+            <th>Geboorte datum</th>
+            <th>Geslacht</th>
+            <th>Email</th>
+            <th>1ste werkdag</th>
+            <th>salaris</th>
+            <th>Straat</th>
+            <th>Postcode</th>
+            <th>Plaats</th>
+            <th>Functie</th>
+            <th colspan="2"></th>
+          </tr>
         </thead>
-        <tbody>
-            <?php foreach ($gebruikers as $gebruiker):?>
+        <tbody class="underline-gone">
+          <?php foreach ($gebruikers as $gebruiker):?>
             <tr>
                 <td><?= $gebruiker->getFirstname();?></td>
                 <td><?= $gebruiker->getPreprovision();?></td>
@@ -34,16 +34,16 @@
                 <td><?= $gebruiker->getPlace();?></td>
                 <td><?= $gebruiker->getRole();?></td>
 
-                <td><a href='?control=instructeur&action=updategebruiker&id=<?= $gebruiker->getId();?>'>bewerk</a></td>
-                <td><a href='?control=instructeur&action=deletegebruiker&id=<?= $gebruiker->getId();?>'>verwijder</a></td>
+                <td><a href='?control=instructeur&action=updategebruiker&id=<?= $gebruiker->getId();?>'> bewerk</a></td>
+                <td><a href='?control=instructeur&action=deletegebruiker&id=<?= $gebruiker->getId();?>'>/ X</a></td>
             </tr>
-            <?php endforeach;?>
+          <?php endforeach;?>
         <td>
-            <tr>
-                <td>
-                    <a href="?control=instructeur&action=addgebruiker">nieuwe gebruiker</a>
-                </td>
-            </tr>
+          <tr>
+            <td>
+              <a href="?control=instructeur&action=addgebruiker">nieuwe gebruiker</a>
+            </td>
+          </tr>
         </tbody>
     </table>
 </div>

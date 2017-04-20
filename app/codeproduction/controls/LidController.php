@@ -8,29 +8,64 @@ class LidController extends AbstractController {
     public function __construct($control, $action){
         parent::__construct($control, $action);
     }
+    public function gebruikerrecht(){
+        $typegebruiker = $this->model->getGebruikerRecht();
+        $this->view->set('typegebruiker', $typegebruiker);
+    }
 
 // kan de defaultAction niet in de AbstractController gezet worden?
-  public function defaultAction() {
-    $typegebruiker = $this->model->getGebruikerRecht();
-    $this->view->set('typegebruiker', $typegebruiker);
-    echo 'hello lid';
-  }
+    public function defaultAction() {
+        $this->gebruikerrecht();
+    }
 
-  public function inschrijvenAction() {
-    $typegebruiker = $this->model->getGebruikerRecht();
-    $this->view->set('typegebruiker', $typegebruiker);
-    echo 'hello lid inschrijven';
-  }
+    public function inschrijvenAction() {
+        $this->gebruikerrecht();
+    }
 
-  public function lidBeheerAction() {
-    $typegebruiker = $this->model->getGebruikerRecht();
-    $this->view->set('typegebruiker', $typegebruiker);
-    echo 'hello lid lidbeheer';
-  }
+    public function lidBeheerAction() {
+        $this->gebruikerrecht();
 
-  public function overzichtAction() {
-    $typegebruiker = $this->model->getGebruikerRecht();
-    $this->view->set('typegebruiker', $typegebruiker);
-    echo 'hello lid overzicht';
-  }
+        if($this->model->isPostLeeg()){
+            $this->view->set('note', 'vul de gegevens in');
+        }
+        else{
+            $result = $this->model->updateGebruiker();
+            switch($result){
+                case REQUEST_SUCCESS:
+                    $this->forward('default');
+                    $this->view->set('note', 'Succes');
+                    break;
+                case REQUEST_FAILURE_DATA_INCOMPLETE:
+                    $this->view->set('note', 'De gegevens waren incompleet. Vul compleet in!');
+                    break;
+                case REQUEST_NOTHING_CHANGED:
+                    $this->view->set('note', 'Er was niets te wijzigen');
+                    break;
+                case REQUEST_FAILURE_DATA_INVALID:
+                    $this->view->set('note', 'Vul een correcte datum/tijd in.');
+                    break;
+            }
+        }
+        $gebruiker= $this->model->getGebruikerById();
+        $this->view->set('gebruiker',$gebruiker);
+    }
+
+    public function overzichtAction(){
+        $this->gebruikerrecht();;
+        echo 'hello lid overzicht';
+
+        $lessen = $this->model->lessonOverzicht();
+        $this->view->set('lessen',$lessen);
+    }
+
+    public function  deelnemenAction(){
+        $this->model->deelnemerAanmelden();
+        $this->forward('overzicht');
+    }
+
+    public function deletelesAction(){
+        $this->gebruikerrecht();
+        $this->model->verwijderLes();
+        $this->forward('overzichtInschrijving');
+    }
 }

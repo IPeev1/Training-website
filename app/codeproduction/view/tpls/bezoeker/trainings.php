@@ -3,7 +3,14 @@
 ?>
 
 <div class="content">
-   <h1>Training Content</h1>
+   <h1>Lessen</h1>
+   <p>
+     <br>U kunt zich inschrijven voor de volgende lessen:
+     <br>
+     <br>1. Stootzak training
+     <br>2. KickBoksen
+     <br>3. MMA
+   </p>
 </div>
 
 <?php

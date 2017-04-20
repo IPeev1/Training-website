@@ -31,8 +31,7 @@
             </tr>
             <tr>
                 <td>tussenvoegsel</td>
-                <td><input type="text" placeholder="toessenvoegsel" name="tussenvoegsel"
-                       required="required">
+                <td><input type="text" placeholder="toessenvoegsel" name="tussenvoegsel">
                 </td>
             </tr>
             <tr>
@@ -104,11 +103,7 @@
             <tr>
                 <td>rol</td>
                 <td>
-                    <select name="rol">
-                        <option value="">Select...</option>
-                        <option value="lid">lid</option>
-                        <option value="instructeur">instructeur</option>
-                    </select>
+                    <input type="hidden" value="instructeur">instructeur</input>
                 </td>
             </tr>-
             <tr>

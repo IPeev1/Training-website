@@ -21,10 +21,28 @@ class BezoekerController extends AbstractController {
     public function registerAction() {
       $typegebruiker = $this->model->getGebruikerRecht();
       $this->view->set('typegebruiker', $typegebruiker);
-      if($this->model->isPostLeeg()) {
-        $this->view->set("note","vul uw gegevns in");
-      } else {
-        $this->login();
+
+      if($this->model->isPostLeeg())
+      {
+         $this->view->set("note","vul uw gegevens in");
+      }
+      else
+      {
+          $result=$this->model->registreren();
+          switch($result)
+          {
+              case REQUEST_SUCCESS:
+                   $this->view->set("note","U bent successvol geregistreerd!");
+                   $this->forward("default");
+                   //   $this->login();
+                   break;
+              case REQUEST_FAILURE_DATA_INVALID:
+                   $this->view->set("note","emailadres niet correct of gebruikersnaam bestaat al");
+                   break;
+              case REQUEST_FAILURE_DATA_INCOMPLETE:
+                   $this->view->set("note","Niet alle gegevens ingevuld");
+                   break;
+          }
       }
     }
 
