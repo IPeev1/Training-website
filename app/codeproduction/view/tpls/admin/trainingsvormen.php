@@ -4,7 +4,7 @@
 
 <div class="content">
    <h1>Trainingsvormen</h1>
-   <table class="instructeur-table">
+   <table class="trainingsvormen-table">
      <thead>
        <tr>
          <td>Beschrijving</td>
