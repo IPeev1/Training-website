@@ -126,8 +126,20 @@ body>section>#content {
 }
 /*///////// end footer /////////*/
 /*///////// leden ////////////*/
-.instructeur-table, .leden-table {
+.instructeur-table, .leden-table, .trainingsvormen-table {
   border: 1px solid #000;
+}
+
+.instructeur-table {
+  font-size: 9px;
+}
+
+.leden-table {
+  font-size: 12px;
+}
+
+.trainingsvormen-table {
+  font-size: 14px;
 }
 
 .logo img {
@@ -135,7 +147,7 @@ body>section>#content {
   height: 110px;
 }
 
-.instructeur-table td, .leden-table td {
+.instructeur-table td, .leden-table td, .trainingsvormen-table td {
   border: 1px solid #000;
   padding: 10px;
 }
