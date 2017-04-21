@@ -25,6 +25,22 @@ class LidController extends AbstractController {
         $this->gebruikerrecht();
         $gebruikersnaam= $this->model->getGebruiker();
         $this->view->set('gebruikersnaam',$gebruikersnaam);
+
+        $lesnamen= $this->model->getLesnaam();
+        $this->view->set('lesnamen',$lesnamen);
+
+        $dates= $this->model->getLesdatum();
+        $this->view->set('dates',$dates);
+
+        $times= $this->model->getLestijd();
+        $this->view->set('times',$times);
+
+        if($this->model->isPostLeeg()){
+            echo 'vul de gegevens in';
+        }
+        else {
+            $this->model->addles();
+        }
     }
 
     public function lidBeheerAction() {
