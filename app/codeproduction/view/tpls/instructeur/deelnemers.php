@@ -3,7 +3,7 @@
     <table>
         <thead>
         <tr>
-            dit zijn alle leden van de training <?= $allegebruikers[0]->trainingsnaam ?>
+            <?php if( $allegebruikers) { echo "dit zijn alle leden van de training<br />".$allegebruikers[0]->trainingsnaam;} else { echo 'Geen leden zijn voor deze les ingeschreven';}?>
         </tr>
         <tr>
             <td>Voornaam</td>

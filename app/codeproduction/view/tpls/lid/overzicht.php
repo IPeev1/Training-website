@@ -19,8 +19,23 @@
           <td><?= $overzicht->getAanmeldingen();?></td>
           <td><a href='?control=lid&action=deleteles&id=<?= $overzicht->getId();?>'>Verwijder</a></td>
         </tr>
-      <?php endforeach;?>
-    </tbody>
-  </table>
+        </thead>
+        <tbody>
+            <?php foreach ($lessen as $les):?>
+                <tr>
+                    <td><?= $les->getDate();?></td>
+                    <td><?= $les->getTime();?></td>
+                    <td><?= $les->getlocation();?></td>
+                    <td><?= $les->getDescription();?></td>
+                    <?php if($les->getMax_persons()>$les->getAantalaangemeld()&&$islesaangemeld->getLesson_id()!==$les->getId()):?>
+                        <td><a href='?control=lid&action=deelnemen&id=<?= $les->getId();?>'>deelnemen</a></td>
+                    <?php endif;?>
+                    <?php if($les->getMax_persons()<=$les->getAantalaangemeld()):?>
+                        <td> VOL! </td>
+                    <?php endif;?>
+                </tr>
+            <?php endforeach;?>
+        </tbody>
+    </table>
 </div>
 <?php include str_replace("\\", DIRECTORY_SEPARATOR, BASE_NAMESPACE)."view/tpls/include/footer.php"; ?>

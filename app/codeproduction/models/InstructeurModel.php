@@ -182,10 +182,11 @@ class InstructeurModel extends AbstractModel {
                         trainings.extra_costs,
                         registrations.member_id,
                 COUNT(lessons.id) AS 'aanmeldingen'
-                FROM `lessons`
-                join trainings on lessons.training_id = trainings.id
-                JOIN registrations on lessons.id = registrations.lesson_id
+                FROM `lessons` 
+                join trainings on lessons.training_id = trainings.id 
+                LEFT JOIN registrations on lessons.id = registrations.lesson_id 
                 GROUP BY lessons.id";
+      
         $sth = $this->dbh->prepare($sql);
         $sth->execute();
         return  $sth->fetchAll(\PDO::FETCH_CLASS,__NAMESPACE__.'\db\Lesson');

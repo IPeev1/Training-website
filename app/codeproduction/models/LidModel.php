@@ -141,6 +141,19 @@ class LidModel extends AbstractModel {
         return  $gebruiker[0];
     }
 
+    public function islesaangemeld(){
+        $gebruiker = $this->getGebruiker();
+        $id=$gebruiker->getId();
+
+        /*$id= filter_input(INPUT_GET,'id',FILTER_VALIDATE_INT);*/
+
+        $sql= "SELECT * FROM `registrations` WHERE `lesson_id`=:id";
+        $sth= $this->dbh->prepare($sql);
+        $sth->bindParam(':id',$id);
+        $sth->execute();
+        $gebruiker = $sth->fetchAll(\PDO::FETCH_CLASS,__NAMESPACE__.'\db\Registration');
+        return  $gebruiker[0];
+    }
     public function lessonOverzicht(){
         $sql = "SELECT lessons.id, COUNT(lessons.id)AS  'aantalaangemeld', lessons.date,
                         lessons.location, lessons.max_persons,

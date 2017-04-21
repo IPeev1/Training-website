@@ -11,6 +11,10 @@ class BezoekerController extends AbstractController {
     public function defaultAction() {
       $typegebruiker = $this->model->getGebruikerRecht();
       $this->view->set('typegebruiker', $typegebruiker);
+
+        $gebruiker = $this->model->getGebruiker();
+            $this->view->set('gebruiker',$gebruiker);
+
       if($this->model->isPostLeeg()) {
         $this->view->set("note","vul uw gegevns in");
       } else {

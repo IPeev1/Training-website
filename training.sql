@@ -29,13 +29,15 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `lessons`;
 CREATE TABLE IF NOT EXISTS `lessons` (
   `id` int(9) NOT NULL AUTO_INCREMENT,
-  `time` datetime(6) NOT NULL,
+  `time` time(6) NOT NULL,
   `date` date NOT NULL,
   `location` varchar(25) NOT NULL,
   `max_persons` int(9) NOT NULL,
   `training_id` int(9) NOT NULL,
   `instructor_id` int(9) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (instructor_id) REFERENCES persons(id),
+  FOREIGN KEY (training_id) REFERENCES persons(id)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
