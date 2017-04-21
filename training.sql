@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 21 apr 2017 om 07:41
+-- Gegenereerd op: 21 apr 2017 om 12:51
 -- Serverversie: 5.7.9
 -- PHP-versie: 5.6.16
 
@@ -38,22 +38,19 @@ CREATE TABLE IF NOT EXISTS `lessons` (
   PRIMARY KEY (`id`),
   KEY `training_id` (`training_id`),
   KEY `instructor_id` (`instructor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `lessons`
 --
 
 INSERT INTO `lessons` (`id`, `time`, `date`, `location`, `max_persons`, `training_id`, `instructor_id`) VALUES
-(1, '12:00:00', '2017-04-27', 'A2', 2, 1, 1),
 (2, '12:00:00', '2017-04-28', 'B3', 2, 2, 2),
 (13, '14:00:00', '2017-04-25', 'A5', 2, 1, 1),
 (14, '12:00:00', '2017-04-26', 'A6', 2, 3, 2),
 (15, '14:00:00', '2017-04-26', 'A6', 5, 2, 3),
 (16, '12:00:00', '2017-04-27', 'A4', 2, 1, 4),
 (17, '14:00:00', '2017-04-27', 'A4', 3, 3, 4),
-(18, '12:12:12', '2019-12-12', 'B2', 4, 3, 13),
-(19, '12:12:12', '2019-12-12', 'B2', 4, 3, 13),
 (20, '12:12:12', '2019-12-12', 'B2', 4, 3, 13),
 (21, '00:00:12', '2019-12-12', 'sr', 2, 1, 5),
 (22, '00:00:55', '2019-12-12', 'we2', 2, 1, 5);
@@ -80,13 +77,13 @@ CREATE TABLE IF NOT EXISTS `persons` (
   `street` varchar(50) DEFAULT NULL,
   `postal_code` varchar(10) DEFAULT NULL,
   `place` varchar(35) DEFAULT NULL,
-  `role` enum('instructeur','lid') NOT NULL,
+  `role` enum('instructeur','lid','admin') NOT NULL,
   `lesson_id` int(9) DEFAULT NULL,
   `registration_id` int(9) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `lesson_id` (`lesson_id`),
   KEY `registration_id` (`registration_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `persons`
@@ -104,7 +101,8 @@ INSERT INTO `persons` (`id`, `loginname`, `password`, `firstname`, `preprovision
 (14, 'kim', 'qwerty', 'kim', NULL, 'Peev', '2017-02-28', 'male', 'kim@hotmail.com', NULL, NULL, 'noodlestraat 44', '2222xl', 'den haag', 'lid', NULL, 5),
 (15, 'bas', 'qwerty', 'bas', NULL, 'Peev', '2017-02-28', 'male', 'bas@hotmail.com', NULL, NULL, 'noodlestraat 45', '2222xl', 'den haag', 'lid', NULL, 6),
 (16, 'm', 'kim', 'kim', 'kim', 'ki', '2017-04-13', 'male', 'male@SHEMALE.NL', NULL, NULL, 'KIM', '', NULL, 'lid', NULL, NULL),
-(17, 'shi', 'shikusho', 'shi', '', 'shi', '2012-12-12', 'male', 'shi@gmail.com', NULL, NULL, 'shikushodo', '2356el', NULL, 'lid', NULL, NULL);
+(17, 'shi', 'shikusho', 'shi', '', 'shi', '2012-12-12', 'male', 'shi@gmail.com', NULL, NULL, 'shikushodo', '2356el', NULL, 'lid', NULL, NULL),
+(18, 'qwerty', 'qwerty', 'qwerty', NULL, 'qwerty', '2017-04-28', 'shemale', 'qwerty@gmail.com', '2017-04-27', 1, 'sdfghjl', '4545gh', 'dfghjko', 'admin', NULL, NULL);
 
 -- --------------------------------------------------------
 

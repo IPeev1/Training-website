@@ -187,7 +187,6 @@ class LidModel extends AbstractModel {
         $stmnt->bindParam(':id', $id);
         $stmnt->bindParam(':lesid', $lesid);
 
-
         try {
             $stmnt->execute();
         } catch (\PDOEXception $e) {
@@ -198,18 +197,48 @@ class LidModel extends AbstractModel {
         }
     }
 
+    public function getInschrijvingen()
+    {
+      $sql="SELECT DATE_FORMAT(lessons.date,'%Y-%m-%d') as `date`,
+                  lessons.id,
+                  lessons.time,
+                  lessons.training_id as `training_id`,
+                  trainings.description
+             FROM `lessons`
+             JOIN `trainings` on lessons.training_id = trainings.id";
+
+       $gebruiker = $this->getGebruiker();
+       $id=$gebruiker->getId();
+
+       $stmnt = $this->dbh->prepare($sql);
+       $stmnt->execute();
+       $inschrijvingen = $stmnt->fetchAll(\PDO::FETCH_CLASS,__NAMESPACE__.'\db\Lesson');
+       return $inschrijvingen;
+    }
+
+    public function getGeselecteerdLes($id) {
+      $sth = $this->dbh->prepare("
+        SELECT *
+        FROM lessons
+        WHERE id = :id
+      ");
+      $sth->bindParam(':id', $id);
+      $sth->execute();
+      return $sth->fetchAll(\PDO::FETCH_CLASS, __NAMESPACE__.'\db\Lesson');
+    }
+
     public function addles(){
-        $date = filter_input(INPUT_POST, 'datum');
-        $time = filter_input(INPUT_POST,'time');
-        $tipe = filter_input(INPUT_POST, 'tipe');
+        $id = filter_input(INPUT_GET, 'lid');
+        $les = $this->getGeselecteerdLes($id);
+        echo "<pre>".var_export($les, true)."</pre>";
 
         $sql="  INSERT INTO `lessons` (`id`, `time`, `date`, `training_id`)
                 VALUES (NULL, :time, :date, :tipe);";
 
         $stmnt = $this->dbh->prepare($sql);
-        $stmnt->bindParam(':time', $time);
-        $stmnt->bindParam(':datum', $date);
-        $stmnt->bindParam(':tipe', $tipe);
+        $stmnt->bindParam(':time', $les->getTime());
+        $stmnt->bindParam(':date', $les->getDate());
+        $stmnt->bindParam(':tipe', $les->getTraining_id());
 
         try {
             $stmnt->execute();
@@ -226,33 +255,6 @@ class LidModel extends AbstractModel {
             return REQUEST_SUCCESS;
         }
         return REQUEST_NOTHING_CHANGED;
-    }
-
-    public function getLesnaam()
-    {
-      $sql="SELECT * FROM trainings";
-      $sth= $this->dbh->prepare($sql);
-      $sth->execute();
-      $lesnamen = $sth->fetchAll(\PDO::FETCH_CLASS,__NAMESPACE__.'\db\Training');
-      return $lesnamen;
-    }
-
-    public function getLestijd()
-    {
-      $sql="SELECT * FROM lessons";
-      $sth= $this->dbh->prepare($sql);
-      $sth->execute();
-      $times = $sth->fetchAll(\PDO::FETCH_CLASS,__NAMESPACE__.'\db\Lesson');
-      return $times;
-    }
-
-    public function getLesdatum()
-    {
-      $sql="SELECT * FROM lessons";
-      $sth= $this->dbh->prepare($sql);
-      $sth->execute();
-      $dates = $sth->fetchAll(\PDO::FETCH_CLASS,__NAMESPACE__.'\db\Lesson');
-      return $dates;
     }
 
     public function getRegistratiesGebruiker() {
