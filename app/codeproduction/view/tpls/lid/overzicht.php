@@ -38,4 +38,5 @@
         </tbody>
     </table>
 </div>
+
 <?php include str_replace("\\", DIRECTORY_SEPARATOR, BASE_NAMESPACE)."view/tpls/include/footer.php"; ?>
