@@ -28,6 +28,7 @@ catch (php\error\FrameworkException $ex) {
 }
 
 catch(\PDOException $e) {
+  echo $e->getMessage();
   $error = "er is iets misgegaan in met de database. Waarschuw de beheerder";
   // zorg zelf e.v.t. voor een fout pagina
    echo $error;
