@@ -11,32 +11,34 @@
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($overzichten as $overzicht):?>
+      <!-- <?php foreach ($overzichten as $overzicht){?>
         <tr>
           <td><?= $overzicht->getDate();?></td>
-          <td><?= $overzicht->getTime();?></td>
-          <td><?= $overzicht->getDescription();?></td>
-          <td><?= $overzicht->getAanmeldingen();?></td>
-          <td><a href='?control=lid&action=deleteles&id=<?= $overzicht->getId();?>'>Verwijder</a></td>
-        </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($lessen as $les):?>
-                <tr>
-                    <td><?= $les->getDate();?></td>
-                    <td><?= $les->getTime();?></td>
-                    <td><?= $les->getlocation();?></td>
-                    <td><?= $les->getDescription();?></td>
-                    <?php if($les->getMax_persons()>$les->getAantalaangemeld()&&$islesaangemeld->getLesson_id()!==$les->getId()):?>
-                        <td><a href='?control=lid&action=deelnemen&id=<?= $les->getId();?>'>deelnemen</a></td>
-                    <?php endif;?>
-                    <?php if($les->getMax_persons()<=$les->getAantalaangemeld()):?>
-                        <td> VOL! </td>
-                    <?php endif;?>
-                </tr>
-            <?php endforeach;?>
-        </tbody>
+          <td><?php echo $overzicht->getTime();?></td>
+          <td><?php echo $overzicht->getDescription();?></td>
+          <td><?php echo $overzicht->getAanmeldingen();?></td>
+          <td><a href='?control=lid&action=deleteles&id=<?php echo $overzicht->getId();?>'>Verwijder</a></td>
+        </tr> -->
+          <?php foreach ($lessen as $les){?>
+            <tr>
+                <td><?php echo $les->getDate();?></td>
+                <td><?php echo $les->getTime();?></td>
+                <td><?php echo $les->getlocation();?></td>
+                <td><?php echo $les->getDescription();?></td>
+                <?php if($les->getMax_persons()>$les->getAantalaangemeld()&&$islesaangemeld->getLesson_id()!==$les->getId()){
+                  echo "<td><a href='?control=lid&action=deelnemen&id=$les->getId()'>deelnemen</a></td>";
+                }?>
+
+                <?php if($les->getMax_persons()<=$les->getAantalaangemeld()){
+                  echo "<td> VOL! </td>";
+                }?>
+            </tr>
+          <?php }?>
+        <!-- <?php }?> -->
+      </tbody>
     </table>
 </div>
 
-<?php include str_replace("\\", DIRECTORY_SEPARATOR, BASE_NAMESPACE)."view/tpls/include/footer.php"; ?>
+<?php
+  include str_replace("\\", DIRECTORY_SEPARATOR, BASE_NAMESPACE)."view/tpls/include/footer.php";
+?>

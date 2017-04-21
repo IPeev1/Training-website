@@ -64,6 +64,7 @@
                     echo '
                 <li><a href="?control=lid&action=default">Home</a></li>
                 <li><a href="?control=lid&action=lidBeheer">Account beheer</a></li>
+                <li><a href="?control=lid&action=inschrijven">Les inschrijven</a></li>
                 <li><a href="?control=lid&action=overzicht">Overzicht</a></li>';
                     break;
                 case 'instructeur':

@@ -196,6 +196,62 @@ class LidModel extends AbstractModel {
             return REQUEST_FAILURE_DATA_INVALID;
             echo "</pre>";
         }
+    }
 
+    public function addles(){
+        $date = filter_input(INPUT_POST, 'datum');
+        $time = filter_input(INPUT_POST,'time');
+        $tipe = filter_input(INPUT_POST, 'tipe');
+
+        $sql="  INSERT INTO `lessons` (`id`, `time`, `date`, `training_id`)
+                VALUES (NULL, :time, :date, :tipe);";
+
+        $stmnt = $this->dbh->prepare($sql);
+        $stmnt->bindParam(':time', $time);
+        $stmnt->bindParam(':datum', $date);
+        $stmnt->bindParam(':tipe', $tipe);
+
+        try {
+            $stmnt->execute();
+        }
+        catch(\PDOEXception $e) {
+            echo "<pre>";
+            echo $e;
+            return REQUEST_FAILURE_DATA_INVALID;
+            echo "</pre>";
+        }
+
+        $aantalGewijzigd = $stmnt->rowCount();
+        if($aantalGewijzigd===1) {
+            return REQUEST_SUCCESS;
+        }
+        return REQUEST_NOTHING_CHANGED;
+    }
+
+    public function getLesnaam()
+    {
+      $sql="SELECT * FROM trainings";
+      $sth= $this->dbh->prepare($sql);
+      $sth->execute();
+      $lesnamen = $sth->fetchAll(\PDO::FETCH_CLASS,__NAMESPACE__.'\db\Training');
+      return $lesnamen;
+    }
+
+    public function getLestijd()
+    {
+      $sql="SELECT * FROM lessons";
+      $sth= $this->dbh->prepare($sql);
+      $sth->execute();
+      $times = $sth->fetchAll(\PDO::FETCH_CLASS,__NAMESPACE__.'\db\Lesson');
+      return $times;
+    }
+
+    public function getLesdatum()
+    {
+      $sql="SELECT * FROM lessons";
+      $sth= $this->dbh->prepare($sql);
+      $sth->execute();
+      $dates = $sth->fetchAll(\PDO::FETCH_CLASS,__NAMESPACE__.'\db\Lesson');
+      return $dates;
     }
 }
