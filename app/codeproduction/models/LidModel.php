@@ -112,7 +112,7 @@ class LidModel extends AbstractModel {
     }
 
     public function verwijderLes(){
-        $id= filter_input(INPUT_GET,'id',FILTER_VALIDATE_INT);
+        $id= filter_input(INPUT_GET,'lid',FILTER_VALIDATE_INT);
 
         if($id===null) {
             return REQUEST_FAILURE_DATA_INCOMPLETE;
@@ -253,5 +253,20 @@ class LidModel extends AbstractModel {
       $sth->execute();
       $dates = $sth->fetchAll(\PDO::FETCH_CLASS,__NAMESPACE__.'\db\Lesson');
       return $dates;
+    }
+
+    public function getRegistratiesGebruiker() {
+      $id = $this->getGebruiker()->getId();
+      $sth = $this->dbh->prepare("
+        SELECT r.*, l.*, t.*, p.firstname, p.preprovision, p.lastname
+        FROM registrations r
+        INNER JOIN lessons l ON r.lesson_id = l.id
+        INNER JOIN trainings t ON l.training_id = t.id
+        INNER JOIN persons p ON p.id = :id
+        WHERE member_id = :id
+      ");
+      $sth->bindParam(':id', $id);
+      $sth->execute();
+      return $sth->fetchAll(\PDO::FETCH_CLASS, __NAMESPACE__.'\db\Registration');
     }
 }

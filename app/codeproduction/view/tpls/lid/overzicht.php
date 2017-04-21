@@ -1,42 +1,38 @@
 <?php include str_replace("\\", DIRECTORY_SEPARATOR, BASE_NAMESPACE)."view/tpls/include/header.php"; ?>
 <div class="content">
-  <table>
+  <h1>Overzicht</h1>
+  <table class="overzicht-table">
     <thead>
       <tr>
+        <td>Sport</td>
+        <td>Locatie</td>
         <td>Datum</td>
         <td>Tijd</td>
-        <td>Sport</td>
-        <td>Aantal ingeschreven</td>
+        <td>Instructeur</td>
+        <td>Prijs</td>
+        <td>Extra kosten</td>
         <td>Verwijderen</td>
       </tr>
     </thead>
     <tbody>
-      <!-- <?php foreach ($overzichten as $overzicht){?>
-        <tr>
-          <td><?= $overzicht->getDate();?></td>
-          <td><?php echo $overzicht->getTime();?></td>
-          <td><?php echo $overzicht->getDescription();?></td>
-          <td><?php echo $overzicht->getAanmeldingen();?></td>
-          <td><a href='?control=lid&action=deleteles&id=<?php echo $overzicht->getId();?>'>Verwijder</a></td>
-        </tr> -->
-          <?php foreach ($lessen as $les){?>
+      <?php
+        foreach($ingeschrevenLessen as $les) {
+          echo "
             <tr>
-                <td><?php echo $les->getDate();?></td>
-                <td><?php echo $les->getTime();?></td>
-                <td><?php echo $les->getlocation();?></td>
-                <td><?php echo $les->getDescription();?></td>
-                <?php if($les->getMax_persons()>$les->getAantalaangemeld()&&$islesaangemeld->getLesson_id()!==$les->getId()){
-                  echo "<td><a href='?control=lid&action=deelnemen&id=$les->getId()'>deelnemen</a></td>";
-                }?>
-
-                <?php if($les->getMax_persons()<=$les->getAantalaangemeld()){
-                  echo "<td> VOL! </td>";
-                }?>
+              <td>".$les->getDescription()."</td>
+              <td>".$les->getLocation()."</td>
+              <td>".$les->getDate()."</td>
+              <td>".$les->getTime()."</td>
+              <td>".$les->getFirstname()." ".$les->getPreprovision()." ".$les->getLastname()."</td>
+              <td>".$les->getPayment()."</td>
+              <td>".$les->getExtra_costs()."</td>
+              <td><a href='?control=lid&action=deleteles&lid=".$les->getId()."'>verwijderen</a></td>
             </tr>
-          <?php }?>
-        <!-- <?php }?> -->
-      </tbody>
-    </table>
+          ";
+        }
+      ?>
+    </tbody>
+  </table>
 </div>
 
 <?php

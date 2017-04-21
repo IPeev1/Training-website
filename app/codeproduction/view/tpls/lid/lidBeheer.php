@@ -7,6 +7,7 @@
  */
 include str_replace("\\", DIRECTORY_SEPARATOR, BASE_NAMESPACE)."view/tpls/include/header.php"; ?>
   <div class="content">
+    <h1>Account beheer</h1>
     <form  method="post" >
       <table>
         <tr>
