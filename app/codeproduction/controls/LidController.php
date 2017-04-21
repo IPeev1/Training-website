@@ -68,12 +68,8 @@ class LidController extends AbstractController {
       $this->gebruikerrecht();;
       $gebruikersnaam= $this->model->getGebruiker();
       $this->view->set('gebruikersnaam',$gebruikersnaam);
-      $lessen = $this->model->lessonOverzicht();
-      $this->view->set('lessen',$lessen);
-      $islesaangemeld = $this->model->islesaangemeld();
-      $this->view->set('islesaangemeld',$islesaangemeld);
-      $overzichten=$this->model->lessonOverzicht();
-      $this->view->set('overzichten',$overzichten);
+      $ingeschrevenLessen = $this->model->getRegistratiesGebruiker();
+      $this->view->set('ingeschrevenLessen', $ingeschrevenLessen);
     }
 
     public function  deelnemenAction(){
@@ -84,7 +80,7 @@ class LidController extends AbstractController {
     }
 
     public function deletelesAction(){
-      $this->model->verwijderLes();
-      $this->forward('overzichtInschrijving');
+        $this->model->verwijderLes();
+        $this->forward('overzicht', 'lid');
     }
 }
